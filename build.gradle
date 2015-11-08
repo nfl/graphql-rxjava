@@ -5,7 +5,6 @@ apply plugin: 'maven'
 apply plugin: 'maven-publish'
 
 sourceCompatibility = 1.8
-def releaseVersion = System.properties.RELEASE_VERSION
 version = '0.0.1'
 group = 'com.graphql-java'
 
@@ -18,7 +17,7 @@ repositories {
 apply plugin: 'groovy'
 
 jar {
-    from "LICENSE.md"
+    from "LICENSE"
 }
 
 dependencies {
@@ -79,7 +78,7 @@ publishing {
                     licenses {
                         license {
                             name 'MIT'
-                            url 'https://github.com/nfl/graphql-rxjava/blob/master/LICENSE.md'
+                            url 'https://github.com/nfl/graphql-rxjava/blob/master/LICENSE'
                             distribution 'repo'
                         }
                     }

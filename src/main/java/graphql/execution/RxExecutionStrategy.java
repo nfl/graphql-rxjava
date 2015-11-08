@@ -1,4 +1,4 @@
-package com.nfl.dm.shield.proxy.service.graphql;
+package graphql.execution;
 
 import graphql.ExecutionResult;
 import graphql.GraphQLException;
