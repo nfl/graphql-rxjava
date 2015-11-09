@@ -51,9 +51,7 @@ public class HelloWorld {
 }
 ```
 
-### Getting started
-
-##### How to use the latest release with Gradle
+### Getting started with gradle
 
 Make sure `mavenCentral` is among your repos:
 
