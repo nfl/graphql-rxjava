@@ -53,39 +53,41 @@ signing {
     sign configurations.archives
 }
 
-uploadArchives {
-    repositories {
-        mavenDeployer {
-            beforeDeployment { MavenDeployment deployment -> signing.signPom(deployment) }
+if (project.hasProperty('ossrhUsername') && project.hasProperty('ossrhPassword')) {
+    uploadArchives {
+        repositories {
+            mavenDeployer {
+                beforeDeployment { MavenDeployment deployment -> signing.signPom(deployment) }
 
-            repository(url: "https://oss.sonatype.org/service/local/staging/deploy/maven2/") {
-                authentication(userName: ossrhUsername, password: ossrhPassword)
-            }
+                repository(url: "https://oss.sonatype.org/service/local/staging/deploy/maven2/") {
+                    authentication(userName: ossrhUsername, password: ossrhPassword)
+                }
 
-            snapshotRepository(url: "https://oss.sonatype.org/content/repositories/snapshots/") {
-                authentication(userName: ossrhUsername, password: ossrhPassword)
-            }
+                snapshotRepository(url: "https://oss.sonatype.org/content/repositories/snapshots/") {
+                    authentication(userName: ossrhUsername, password: ossrhPassword)
+                }
 
-            pom.project {
-                name 'graphql-rxjava'
-                description 'GraphQL Rx-Java'
-                url "https://github.com/nfl/graphql-rxjava"
-                scm {
+                pom.project {
+                    name 'graphql-rxjava'
+                    description 'GraphQL Rx-Java'
                     url "https://github.com/nfl/graphql-rxjava"
-                    connection "https://github.com/nfl/graphql-rxjava"
-                    developerConnection "https://github.com/nfl/graphql-rxjava"
-                }
-                licenses {
-                    license {
-                        name 'MIT'
-                        url 'https://github.com/nfl/graphql-rxjava/blob/master/LICENSE'
-                        distribution 'repo'
+                    scm {
+                        url "https://github.com/nfl/graphql-rxjava"
+                        connection "https://github.com/nfl/graphql-rxjava"
+                        developerConnection "https://github.com/nfl/graphql-rxjava"
                     }
-                }
-                developers {
-                    developer {
-                        id 'tberman'
-                        name 'Todd Berman'
+                    licenses {
+                        license {
+                            name 'MIT'
+                            url 'https://github.com/nfl/graphql-rxjava/blob/master/LICENSE'
+                            distribution 'repo'
+                        }
+                    }
+                    developers {
+                        developer {
+                            id 'tberman'
+                            name 'Todd Berman'
+                        }
                     }
                 }
             }
