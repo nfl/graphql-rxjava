@@ -1,8 +1,6 @@
-import java.text.SimpleDateFormat
-
 apply plugin: 'java'
 apply plugin: 'maven'
-apply plugin: 'maven-publish'
+apply plugin: 'signing'
 
 sourceCompatibility = 1.8
 version = '0.0.1'
@@ -51,42 +49,43 @@ artifacts {
     archives javadocJar
 }
 
+signing {
+    sign configurations.archives
+}
 
-publishing {
-    publications {
-        graphqlJava(MavenPublication) {
-            version version
-            from components.java
+uploadArchives {
+    repositories {
+        mavenDeployer {
+            beforeDeployment { MavenDeployment deployment -> signing.signPom(deployment) }
 
-            artifact sourcesJar {
-                classifier "sources"
+            repository(url: "https://oss.sonatype.org/service/local/staging/deploy/maven2/") {
+                authentication(userName: ossrhUsername, password: ossrhPassword)
             }
-            artifact javadocJar {
-                classifier "javadoc"
+
+            snapshotRepository(url: "https://oss.sonatype.org/content/repositories/snapshots/") {
+                authentication(userName: ossrhUsername, password: ossrhPassword)
             }
-            pom.withXml {
-                asNode().children().last() + {
-                    resolveStrategy = Closure.DELEGATE_FIRST
-                    name 'graphql-rxjava'
-                    description 'GraphQL Rx-Java'
+
+            pom.project {
+                name 'graphql-rxjava'
+                description 'GraphQL Rx-Java'
+                url "https://github.com/nfl/graphql-rxjava"
+                scm {
                     url "https://github.com/nfl/graphql-rxjava"
-                    scm {
-                        url "https://github.com/nfl/graphql-rxjava"
-                        connection "https://github.com/nfl/graphql-rxjava"
-                        developerConnection "https://github.com/nfl/graphql-rxjava"
+                    connection "https://github.com/nfl/graphql-rxjava"
+                    developerConnection "https://github.com/nfl/graphql-rxjava"
+                }
+                licenses {
+                    license {
+                        name 'MIT'
+                        url 'https://github.com/nfl/graphql-rxjava/blob/master/LICENSE'
+                        distribution 'repo'
                     }
-                    licenses {
-                        license {
-                            name 'MIT'
-                            url 'https://github.com/nfl/graphql-rxjava/blob/master/LICENSE'
-                            distribution 'repo'
-                        }
-                    }
-                    developers {
-                        developer {
-                            id 'tberman'
-                            name 'Todd Berman'
-                        }
+                }
+                developers {
+                    developer {
+                        id 'tberman'
+                        name 'Todd Berman'
                     }
                 }
             }
