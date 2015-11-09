@@ -1,9 +1,9 @@
 # graphql-rxjava
 
-#### Friendly warning: As GraphQL itself is currently a Working Draft, expect changes.
-
 This is an execution strategy for [graphql-java](https://github.com/andimarek/graphql-java) that makes
 it easier to use rxjava's Observable.
+
+[![Build Status](https://travis-ci.org/nfl/graphql-rxjava.svg)](https://travis-ci.org/nfl/graphql-rxjava)
 
 # Table of Contents
 
