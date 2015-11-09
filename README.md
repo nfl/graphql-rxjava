@@ -1,7 +1,7 @@
 # graphql-rxjava
 
 This is an execution strategy for [graphql-java](https://github.com/andimarek/graphql-java) that makes
-it easier to use rxjava's Observable.
+it easier to use rxjava's Observable. It currently requires Java8.
 
 [![Build Status](https://travis-ci.org/nfl/graphql-rxjava.svg)](https://travis-ci.org/nfl/graphql-rxjava)
 
