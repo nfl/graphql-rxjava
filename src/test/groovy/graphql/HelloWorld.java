@@ -32,7 +32,11 @@ public class HelloWorld {
                 .query(queryType)
                 .build();
 
-        Observable<?> result = ((RxExecutionResult)new GraphQL(schema, new RxExecutionStrategy()).execute("{hello}")).getDataObservable();
+        GraphQL graphQL = GraphQL.newGraphQL(schema)
+        		.queryExecutionStrategy(new RxExecutionStrategy())
+        		.mutationExecutionStrategy(new RxExecutionStrategy())
+        		.build();
+        Observable<?> result = ((RxExecutionResult) graphQL.execute("{hello}")).getDataObservable();
 
         result.subscribe(System.out::println);
     }
@@ -52,9 +56,15 @@ public class HelloWorld {
                 .query(queryType)
                 .build();
 
-        RxExecutionResult executionResult = (RxExecutionResult)new GraphQL(schema, new RxExecutionStrategy()).execute("{hello}");
+        GraphQL graphQL = GraphQL.newGraphQL(schema)
+        		.queryExecutionStrategy(new RxExecutionStrategy())
+        		.mutationExecutionStrategy(new RxExecutionStrategy())
+        		.build();
+        
+        RxExecutionResult executionResult = (RxExecutionResult) graphQL.execute("{hello}");
 
-        Observable<Map<String, Object>> result = (Observable<Map<String, Object>>)executionResult.getDataObservable();
+        @SuppressWarnings("unchecked")
+		Observable<Map<String, Object>> result = (Observable<Map<String, Object>>) executionResult.getDataObservable();
 
         TestSubscriber<Map<String, Object>> testSubscriber = new TestSubscriber<>();
 

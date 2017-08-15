@@ -1,7 +1,11 @@
 .idea
 .gradle
 build
+.classpath
+.settings
+.project
 
 graphql-rxjava.iml
 
 .DS_Store
+/bin/
